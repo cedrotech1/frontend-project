@@ -10,11 +10,20 @@ function SignupPage() {
     const handleSignup = async (e) => {
         e.preventDefault();
         try {
-            await axios.post("http://localhost:4000/signup", { names, email, password });
-            setMessage('Signup successful! Please login.');
-            setTimeout(() => {
-                window.location.href = '/login';
-            }, 2000);
+            const response = await axios.post("http://localhost:4000/signup", { names, email, password });
+            
+            // Check if user already exists
+            if (response.data.message === 'User already exists') {
+                setMessage('User already exists! Please use a different email.');
+            } else if (response.data.message === 'User registered successfully') {
+                setMessage('Signup successful! Please login.');
+                setTimeout(() => {
+                    window.location.href = '/login';
+                }, 2000);
+            } else {
+                setMessage(response.data.error || 'Signup failed');
+            }
+            
         } catch (error) {
             setMessage(error.response?.data?.error || 'Signup failed');
         }
