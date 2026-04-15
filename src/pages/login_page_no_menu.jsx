@@ -1,7 +1,7 @@
 import axios from "axios";
 import { useState } from 'react';
 
-function LoginPage() {
+function LoginPageNoMenu() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [message, setMessage] = useState('');
@@ -57,4 +57,4 @@ function LoginPage() {
     );
 }
 
-export default LoginPage;
+export default LoginPageNoMenu;
